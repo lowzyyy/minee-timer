@@ -33,14 +33,14 @@
             leave-to="opacity-0 scale-95"
           >
             <DialogPanel
-              class="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all"
+              class="dg w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left shadow-xl transition-all"
             >
               <DialogTitle as="h3" class="text-lg font-medium leading-6 text-gray-900">
                 Timer settings (max 180 min)
               </DialogTitle>
               <form @submit="onSubmit">
                 <div class="mt-4 flex justify-between">
-                  <div class="xs:w-[180px] flex w-[130px] flex-col gap-1">
+                  <div class="flex w-[130px] flex-col gap-1 xs:w-[180px]">
                     <label for="timeFocus">Focus</label>
                     <input
                       id=""
@@ -52,7 +52,7 @@
                       class="rounded-md bg-blue-300/25 p-1 pl-2 outline-none invalid:bg-red-400/25"
                     />
                   </div>
-                  <div class="xs:w-[180px] flex w-[130px] flex-col gap-1">
+                  <div class="flex w-[130px] flex-col gap-1 xs:w-[180px]">
                     <label for="timeRest">Rest</label>
                     <input
                       v-model="rest"
@@ -119,4 +119,11 @@ const onSubmit = (e: any) => {
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+@media (pointer: coarse) {
+  .dg {
+    position: absolute;
+    top: 18%;
+  }
+}
+</style>

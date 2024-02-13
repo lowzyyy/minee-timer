@@ -17,49 +17,50 @@
           :width="tVars.widthTimer"
           :height="tVars.heightTimer"
           xmlns="http://www.w3.org/2000/svg"
-          transform="scale(-1,1)"
         >
-          <circle
-            v-bind:cx="tVars.cx"
-            v-bind:cy="tVars.cy"
-            v-bind:r="tVars.r + tVars.biggerCircleOffset"
-            class="fill-white stroke-gray-200 stroke-2"
-          />
-
-          <circle
-            v-bind:cx="tVars.cxU"
-            v-bind:cy="tVars.cyU"
-            v-bind:r="tVars.rSmall"
-            :class="`${!(remaining % stepFrequency) && mode === 'rest' ? 'fill-rose-500' : 'fill-stone-400'}`"
-          />
-          <circle
-            v-bind:cx="tVars.cxL"
-            v-bind:cy="tVars.cyL"
-            v-bind:r="tVars.rSmall"
-            class="fill-stone-300"
-          />
-          <circle
-            v-bind:cx="tVars.cxR"
-            v-bind:cy="tVars.cyR"
-            v-bind:r="tVars.rSmall"
-            class="fill-stone-300"
-          />
-          <circle
-            v-bind:cx="tVars.cxD"
-            v-bind:cy="tVars.cyD"
-            v-bind:r="tVars.rSmall"
-            class="fill-stone-300"
-          />
-
-          <g :transform="`rotate(-90,${tVars.cx},${tVars.cy})`">
+          <g transform="scale(-1, 1)" class="origin-center">
             <circle
               v-bind:cx="tVars.cx"
               v-bind:cy="tVars.cy"
-              v-bind:r="tVars.r"
-              :style="{ fill: `${timerColor}` }"
-              class="stroke-stone-300"
+              v-bind:r="tVars.r + tVars.biggerCircleOffset"
+              class="fill-white stroke-gray-200 stroke-2"
             />
-            <path v-bind:d="d_path" class="fill-white transition-colors" />
+
+            <circle
+              v-bind:cx="tVars.cxU"
+              v-bind:cy="tVars.cyU"
+              v-bind:r="tVars.rSmall"
+              :class="`${!(remaining % stepFrequency) && mode === 'rest' ? 'fill-rose-500' : 'fill-stone-400'}`"
+            />
+            <circle
+              v-bind:cx="tVars.cxL"
+              v-bind:cy="tVars.cyL"
+              v-bind:r="tVars.rSmall"
+              class="fill-stone-300"
+            />
+            <circle
+              v-bind:cx="tVars.cxR"
+              v-bind:cy="tVars.cyR"
+              v-bind:r="tVars.rSmall"
+              class="fill-stone-300"
+            />
+            <circle
+              v-bind:cx="tVars.cxD"
+              v-bind:cy="tVars.cyD"
+              v-bind:r="tVars.rSmall"
+              class="fill-stone-300"
+            />
+
+            <g :transform="`rotate(-90,${tVars.cx},${tVars.cy})`">
+              <circle
+                v-bind:cx="tVars.cx"
+                v-bind:cy="tVars.cy"
+                v-bind:r="tVars.r"
+                :style="{ fill: `${timerColor}` }"
+                class="stroke-stone-300"
+              />
+              <path v-bind:d="d_path" class="fill-white transition-colors" />
+            </g>
           </g>
         </svg>
         <div class="mt-8 flex h-10 justify-center gap-8">
