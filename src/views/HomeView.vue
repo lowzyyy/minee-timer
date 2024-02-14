@@ -121,14 +121,15 @@ const tVars = ref(getTimerParameters(window.innerWidth))
 window.addEventListener('resize', () => {
   tVars.value = getTimerParameters(window.innerWidth)
   timerWorker.postMessage({ type: 'stop' })
-  timerWorker.postMessage({
-    type: 'start',
-    times: { focus: times.focus, rest: times.rest },
-    remaining: remaining.value,
-    cx: tVars.value.cx,
-    cy: tVars.value.cy,
-    r: tVars.value.r
-  })
+  if (isStarted.value)
+    timerWorker.postMessage({
+      type: 'start',
+      times: { focus: times.focus, rest: times.rest },
+      remaining: remaining.value,
+      cx: tVars.value.cx,
+      cy: tVars.value.cy,
+      r: tVars.value.r
+    })
 })
 
 const x = ref(tVars.value.cx + tVars.value.r)
