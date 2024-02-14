@@ -9,7 +9,7 @@
           <PhGear weight="duotone" size="28" @click="showSettings = true" class="cursor-pointer" />
         </div>
 
-        <SettingsDialog :show="showSettings" v-model:isOpen="showSettings" />
+        <SettingsDialog v-if="showSettings" v-model:isOpen="showSettings" />
         <ThemeSwitch />
       </div>
     </div>

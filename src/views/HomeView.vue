@@ -97,6 +97,11 @@ import { stepFrequency, one_minute, getTimerParameters } from '@/workers/helpers
 import TimerThemePicker from '@/components/Home/TimerTheme/TimerThemePicker.vue'
 import { useTimesStore } from '@/stores/timesStore'
 import { formatTime } from '@/globalHelpers/globalHelpers'
+import focusSound from '@/assets/sound/focus.mp3'
+import restSound from '@/assets/sound/rest.mp3'
+
+const audioFocus = new Audio(focusSound)
+const audioRest = new Audio(restSound)
 
 const timesStore = useTimesStore()
 const times = timesStore.times
@@ -106,15 +111,22 @@ const remaining = ref(times.focus * stepFrequency * one_minute)
 const isPaused = ref(false)
 const isStarted = ref(false)
 const mode = ref('focus')
+const prevMode = ref('')
 
 const timerColor = ref<string>('')
 
 const timerWorker = new Worker(new URL('../workers/timer.ts', import.meta.url), { type: 'module' })
-timerWorker.onmessage = (e: any) => {
+timerWorker.onmessage = async (e: any) => {
   x.value = e.data[0]
   y.value = e.data[1]
   remaining.value = e.data[2]
   mode.value = e.data[3]
+  if ((prevMode.value === '' || prevMode.value === 'rest') && mode.value === 'focus') {
+    await audioFocus.play()
+  } else if (prevMode.value === 'focus' && mode.value === 'rest') {
+    await audioRest.play()
+  }
+  prevMode.value = mode.value
 }
 
 const tVars = ref(getTimerParameters(window.innerWidth))
@@ -147,11 +159,13 @@ watch(times, () => {
   remaining.value = times.focus * stepFrequency * one_minute
   isStarted.value = false
   isPaused.value = false
+  prevMode.value = ''
   x.value = tVars.value.cx + tVars.value.r
   y.value = tVars.value.cy
 })
 
 const startTimer = () => {
+  prevMode.value = ''
   isStarted.value = true
   remaining.value = times.focus * stepFrequency * one_minute
   timerWorker.postMessage({ type: 'stop' })
@@ -182,27 +196,6 @@ const stopTimer = () => {
   timerWorker.postMessage({ type: 'stop' })
   isPaused.value = true
 }
-
-// const onVisibilityHandler = (e: any) => {
-//   if (document.visibilityState === 'hidden') {
-//     if (!isPaused.value && isStarted.value) {
-//       clearInterval(timer)
-//       timeSwitchedTab = new Date().getTime()
-//     }
-//   }
-//   if (document.visibilityState === 'visible') {
-//     if (!isPaused.value && isStarted.value) {
-//       const tab
-//     }
-//   }
-// }
-
-// onMounted(() => {
-//   addEventListener('visibilitychange', onVisibilityHandler)
-// })
-// onUnmounted(() => {
-//   removeEventListener('visibilitychange', onVisibilityHandler)
-// })
 </script>
 
 <style>

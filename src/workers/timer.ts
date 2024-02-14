@@ -23,6 +23,7 @@ const startRest = () => {
     if (remaining === times.rest) {
       clearInterval(timer)
       inMode = 'focus'
+      remaining = times.focus
       startFocus()
     } else {
       renderTimer(times.rest, ++remaining, inMode, cx, cy, r)
