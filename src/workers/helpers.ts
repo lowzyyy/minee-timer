@@ -90,8 +90,8 @@ export const renderTimer = (
 ) => {
   const step = 360 / time
 
-  const x = cx + r * Math.cos(toRadians(step * remaining))
-  const y = cy + r * Math.sin(toRadians(step * remaining))
+  const x = cx + r * Math.cos(toRadians(step * (time - remaining)))
+  const y = cy + r * Math.sin(toRadians(step * (time - remaining)))
 
   postMessage([x, y, remaining, mode])
 }

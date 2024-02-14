@@ -2,7 +2,7 @@
   <div class="relative z-20 w-36">
     <Listbox v-model="selectedColor">
       <ListboxButton
-        class="relative flex w-full items-center rounded-xl py-2 pl-3 pr-2"
+        class="relative flex w-full items-center rounded-xl py-2 pl-3 pr-2 outline-none"
         :style="{ backgroundColor: `${selectedColor.code}` }"
         >{{ selectedColor.name }}
         <PhCaretUpDown size="14" class="absolute right-2" />
@@ -16,7 +16,7 @@
         leave-to-class="opacity-0"
       >
         <ListboxOptions
-          class="absolute my-1 w-full first:[&>li]:rounded-t-md last:[&>li]:rounded-b-md"
+          class="absolute my-1 w-full outline-none first:[&>li]:rounded-t-md last:[&>li]:rounded-b-md"
         >
           <ListboxOption
             v-for="color in colors"

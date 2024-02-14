@@ -18,70 +18,70 @@
           :height="tVars.heightTimer"
           xmlns="http://www.w3.org/2000/svg"
         >
-          <g transform="scale(-1, 1)" class="origin-center">
-            <circle
-              v-bind:cx="tVars.cx"
-              v-bind:cy="tVars.cy"
-              v-bind:r="tVars.r + tVars.biggerCircleOffset"
-              class="fill-white stroke-gray-200 stroke-2"
-            />
+          <circle
+            v-bind:cx="tVars.cx"
+            v-bind:cy="tVars.cy"
+            v-bind:r="tVars.r + tVars.biggerCircleOffset"
+            class="fill-white stroke-gray-200 stroke-2"
+          />
 
-            <circle
-              v-bind:cx="tVars.cxU"
-              v-bind:cy="tVars.cyU"
-              v-bind:r="tVars.rSmall"
-              :class="`${!(remaining % stepFrequency) && mode === 'rest' ? 'fill-rose-500' : 'fill-stone-400'}`"
-            />
-            <circle
-              v-bind:cx="tVars.cxL"
-              v-bind:cy="tVars.cyL"
-              v-bind:r="tVars.rSmall"
-              class="fill-stone-300"
-            />
-            <circle
-              v-bind:cx="tVars.cxR"
-              v-bind:cy="tVars.cyR"
-              v-bind:r="tVars.rSmall"
-              class="fill-stone-300"
-            />
-            <circle
-              v-bind:cx="tVars.cxD"
-              v-bind:cy="tVars.cyD"
-              v-bind:r="tVars.rSmall"
-              class="fill-stone-300"
-            />
+          <circle
+            v-bind:cx="tVars.cxU"
+            v-bind:cy="tVars.cyU"
+            v-bind:r="tVars.rSmall"
+            :class="`${!(remaining % stepFrequency) && mode === 'rest' ? 'fill-rose-500' : 'fill-stone-400'}`"
+          />
+          <circle
+            v-bind:cx="tVars.cxL"
+            v-bind:cy="tVars.cyL"
+            v-bind:r="tVars.rSmall"
+            class="fill-stone-300"
+          />
+          <circle
+            v-bind:cx="tVars.cxR"
+            v-bind:cy="tVars.cyR"
+            v-bind:r="tVars.rSmall"
+            class="fill-stone-300"
+          />
+          <circle
+            v-bind:cx="tVars.cxD"
+            v-bind:cy="tVars.cyD"
+            v-bind:r="tVars.rSmall"
+            class="fill-stone-300"
+          />
 
-            <g :transform="`rotate(-90,${tVars.cx},${tVars.cy})`">
-              <circle
-                v-bind:cx="tVars.cx"
-                v-bind:cy="tVars.cy"
-                v-bind:r="tVars.r"
-                :style="{ fill: `${timerColor}` }"
-                class="stroke-stone-300"
-              />
-              <path v-bind:d="d_path" class="fill-white transition-colors" />
-            </g>
-          </g>
+          <circle
+            v-bind:cx="tVars.cx"
+            v-bind:cy="tVars.cy"
+            v-bind:r="tVars.r"
+            :style="{ fill: `${timerColor}` }"
+            class="stroke-stone-300"
+          />
+          <path
+            :transform="`rotate(-90,${tVars.cx},${tVars.cy}) `"
+            v-bind:d="d_path"
+            class="fill-stone-100 transition-colors"
+          />
         </svg>
         <div class="mt-8 flex h-10 justify-center gap-8">
           <button
             v-if="!isPaused"
             @click="startTimer"
-            class="rounded-lg bg-lime-500 p-1 px-3 text-xl font-semibold text-white shadow-md transition-all hover:shadow-lime-600 dark:bg-lime-600"
+            class="rounded-lg bg-lime-500 p-1 px-3 text-xl font-semibold text-white shadow-md transition-all dark:bg-lime-600 sm:hover:shadow-lime-600"
           >
             {{ isStarted ? 'Restart' : 'Start' }}
           </button>
           <button
             v-else
             @click="continueTimer"
-            class="rounded-lg bg-green-400 p-1 px-3 text-xl text-white shadow-md transition-all hover:shadow-green-400 dark:bg-green-600"
+            class="rounded-lg bg-green-400 p-1 px-3 text-xl text-white shadow-md transition-all dark:bg-green-600 sm:hover:shadow-green-400"
           >
             Continue
           </button>
           <button
             v-if="isStarted"
             @click="stopTimer"
-            class="rounded-lg bg-red-500 p-1 px-3 text-xl text-white shadow-md transition-all hover:shadow-red-400 dark:bg-red-600"
+            class="rounded-lg bg-red-500 p-1 px-3 text-xl text-white shadow-md transition-all dark:bg-red-600 sm:hover:shadow-red-400"
           >
             Stop
           </button>
@@ -136,9 +136,9 @@ const y = ref(tVars.value.cy)
 
 const d_path = computed(() => {
   if (y.value <= tVars.value.cy)
-    return `M ${tVars.value.cx}, ${tVars.value.cy} L ${tVars.value.cx + tVars.value.r}, ${tVars.value.cy} A ${tVars.value.r},${tVars.value.r} 0 0,0 ${x.value},${y.value} Z`
+    return `M ${tVars.value.cx}, ${tVars.value.cy} L ${tVars.value.cx + tVars.value.r}, ${tVars.value.cy} A ${tVars.value.r},${tVars.value.r} 0 1,1 ${x.value},${y.value} Z`
   else
-    return `M ${tVars.value.cx}, ${tVars.value.cy} L ${tVars.value.cx + tVars.value.r}, ${tVars.value.cy} A ${tVars.value.r},${tVars.value.r} 0 1,0 ${x.value},${y.value} Z`
+    return `M ${tVars.value.cx}, ${tVars.value.cy} L ${tVars.value.cx + tVars.value.r}, ${tVars.value.cy} A ${tVars.value.r},${tVars.value.r} 0 0,1 ${x.value},${y.value} Z`
 })
 
 watch(times, () => {

@@ -8,7 +8,6 @@ let cx: number, cy: number, r: number
 
 const startFocus = () => {
   timer = setInterval(() => {
-    console.log('fokus')
     if (remaining === 1) {
       clearInterval(timer)
       inMode = 'rest'
@@ -21,7 +20,6 @@ const startFocus = () => {
 
 const startRest = () => {
   timer = setInterval(() => {
-    console.log('rest')
     if (remaining === times.rest) {
       clearInterval(timer)
       inMode = 'focus'
